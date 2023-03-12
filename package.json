@@ -2,7 +2,7 @@
   "name": "quick-debugger",
   "displayName": "Quick Debugger",
   "description": "When you click BreakPoint, write or delete the debugger",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publisher": "xudunyao",
   "engines": {
     "vscode": "^1.20.0"
@@ -20,6 +20,59 @@
   ],
   "main": "./extension.js",
   "contributes": {
+    "menus": {
+      "editor/title": [
+        {
+          "command": "quick-debugger.Insert_Log_After",
+          "group": "navigation",
+          "when": "editorTextFocus && !editorReadonly && editorHasSelection"
+        },
+        {
+          "command": "quick-debugger.Insert_Log_Before",
+          "group": "navigation",
+          "when": "editorTextFocus && !editorReadonly && editorHasSelection"
+        },
+        {
+          "command": "quick-debugger.Delete_All_Log",
+          "group": "navigation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "quick-debugger.Insert_Log_Before",
+        "title": "Insert Log Before",
+        "icon": {
+          "light": "./images/arrow_up_light.png",
+          "dark": "./images/arrow_up_dark.png"
+        }
+      },
+      {
+        "command": "quick-debugger.Insert_Log_After",
+        "title": "Insert Log After",
+        "icon": {
+          "light": "./images/arrow_down_light.png",
+          "dark": "./images/arrow_down_dark.png"
+        }
+      },
+      {
+        "command": "quick-debugger.Delete_Log",
+        "title": "Delete  Log"
+      },
+      {
+        "command": "quick-debugger.Delete_All_Log",
+        "title": "Delete All Log",
+        "icon": {
+          "light": "./images/clear_all_light.png",
+          "dark": "./images/clear_all_dark.png"
+        }
+      }
+    ]
+  },
+  "capabilities":{
+   "codeLensProvider": {
+     "resolveProvider": true
+   }
   },
   "scripts": {
     "lint": "eslint .",
