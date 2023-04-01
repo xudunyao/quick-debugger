@@ -39,7 +39,6 @@ function activate(context) {
         let reg = /^\s*/
         let result = text.match(reg)
         editBuilder.insert(line.range.start, `${result[0]}debugger;\r`)
-        console.log(result)
       })
     } else {
       let line = editor.document.lineAt(e.removed[0].location.range.start.line)
@@ -53,62 +52,6 @@ function activate(context) {
     editor.document.save()
   })
   context.subscriptions.push(
-    vscode.commands.registerCommand('quick-debugger.Insert_Log_Before', () => {
-      let editor = vscode.window.activeTextEditor
-      let position = editor.selection.active
-      let line = editor.document.lineAt(position.line)
-      let text = editor.document.getText(editor.selection)
-      let reg = /^\s*/
-      let result = line.text.match(reg)
-      if (line.text.indexOf('console.log') > -1 || text.length === 0) {
-        return
-      }
-      editor.edit((editBuilder) => {
-        editBuilder.insert(
-          line.range.start,
-          `${result[0]}console.log("${text}",${text});\r`
-        )
-      })
-      editor.document.save()
-    })
-  )
-  context.subscriptions.push(
-    vscode.commands.registerCommand('quick-debugger.Insert_Log_After', () => {
-      let editor = vscode.window.activeTextEditor
-      let position = editor.selection.active
-      let line = editor.document.lineAt(position.line)
-      let text = editor.document.getText(editor.selection)
-      let reg = /^\s*/
-      let result = line.text.match(reg)
-      if (line.text.indexOf('console.log') > -1 || text.length === 0) {
-        return
-      }
-      editor.edit((editBuilder) => {
-        editBuilder.insert(
-          line.range.end,
-          `\r${result[0]}console.log("${text}",${text});`
-        )
-      })
-      editor.document.save()
-    })
-  )
-  context.subscriptions.push(
-    vscode.commands.registerCommand('quick-debugger.Delete_All_Log', () => {
-      let editor = vscode.window.activeTextEditor
-      let text = editor.document.getText()
-      let reg = /console\.log\((.*?)\);?/g
-      let result = text.replace(reg, '')
-      editor.edit((editBuilder) => {
-        editBuilder.replace(
-          new vscode.Range(0, 0, editor.document.lineCount, 0),
-          result
-        )
-      })
-      vscode.commands.executeCommand('editor.action.formatDocument');
-      editor.document.save()
-    })
-  )
-  context.subscriptions.push(
     vscode.commands.registerCommand('quick-debugger.deleteLog', (range) => {
       let editor = vscode.window.activeTextEditor;
       let reg = /console\.log\((.*?)\);?/g
@@ -117,8 +60,6 @@ function activate(context) {
       editor.edit((editBuilder) => {
         editBuilder.replace(range, result)
       })
-      vscode.commands.executeCommand('editor.action.formatDocument')
-      editor.document.save()
     })
   )
   context.subscriptions.push(

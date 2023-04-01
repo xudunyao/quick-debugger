@@ -2,7 +2,7 @@
   "name": "quick-debugger",
   "displayName": "Quick Debugger",
   "description": "When you click BreakPoint, write or delete the debugger",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "publisher": "xudunyao",
   "engines": {
     "vscode": "^1.20.0"
