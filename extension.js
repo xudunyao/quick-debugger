@@ -38,7 +38,7 @@ function activate(context) {
         let text = line.text
         let reg = /^\s*/
         let result = text.match(reg)
-        editBuilder.insert(line.range.start, `${result[0]}debugger;\r`)
+        editBuilder.insert(line.range.start, `${result[0]}debugger\r`)
       })
     } else {
       let line = editor.document.lineAt(e.removed[0].location.range.start.line)
@@ -49,7 +49,6 @@ function activate(context) {
         })
       }
     }
-    editor.document.save()
   })
   context.subscriptions.push(
     vscode.commands.registerCommand('quick-debugger.deleteLog', (range) => {
