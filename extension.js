@@ -53,11 +53,9 @@ function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand('quick-debugger.deleteLog', (range) => {
       let editor = vscode.window.activeTextEditor;
-      let reg = /console\.log\((.*?)\);?/g
-      let text = editor.document.getText(range)
-      let result = text.replace(reg, '')
+      let line = editor.document.lineAt(range.start.line)
       editor.edit((editBuilder) => {
-        editBuilder.replace(range, result)
+        editBuilder.delete(line.rangeIncludingLineBreak)
       })
     })
   )
